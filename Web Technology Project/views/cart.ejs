@@ -1,0 +1,1524 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Roboto:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav a {
+            color: #6b46c1;
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #805ad5;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 32px;
+            width: 32px;
+            margin-right: 0.5rem;
+        }
+
+        .logo h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        section {
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #fff;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 90%;
+        }
+
+        h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+
+        .product-item {
+            display: flex;
+            align-items: center;
+            background-color: #f9f9f9;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+
+        .product-item:hover {
+            background-color: #f0f0f0;
+        }
+
+        .img {
+            height: 100px;
+            width: 100px;
+            border-radius: 0.5rem;
+            margin-right: 1.5rem;
+            object-fit: contain;
+        }
+
+        .description {
+            flex-grow: 1;
+        }
+
+        .description h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .description p {
+            color: #718096;
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .description .price {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #6b46c1;
+        }
+
+        .plus-btn,
+        .minus-btn {
+            background-color: #6b46c1;
+            color: #fff;
+            border: none;
+            border-radius: 0.25rem;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .plus-btn:hover,
+        .minus-btn:hover {
+            background-color: #805ad5;
+        }
+
+        .buyNow {
+            display: none;
+            margin: 2rem auto 0;
+            background-color: #6b46c1;
+            color: #fff;
+            border: none;
+            border-radius: 0.25rem;
+            padding: 0.75rem 1.5rem;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .buyNow:hover {
+            background-color: #805ad5;
+        }
+
+        .progress {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background-color: #6b46c1;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .progress:hover {
+            background-color: #805ad5;
+        }
+
+        .progress svg {
+            width: 24px;
+            height: 24px;
+            fill: #fff;
+        }
+
+
+
+
+
+        .progress {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background-color: #6b46c1;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            z-index: 999;
+        }
+
+        .progress:hover {
+            background-color: #805ad5;
+        }
+
+        .progress svg {
+            width: 24px;
+            height: 24px;
+            fill: #fff;
+        }
+
+
+        .progress {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background-color: transparent;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            z-index: 999;
+            display: none;
+        }
+
+        .progress-circle {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-image: conic-gradient(#6b46c1 0%, #6b46c1 0%, #e2e8f0 0%);
+            /* transform: rotate(-90deg); */
+            transition: background-image 0.3s ease;
+        }
+
+        .progress:hover .progress-circle {
+            background-image: conic-gradient(#805ad5 0%, #805ad5 0%, #e2e8f0 0%);
+        }
+
+        .progress svg {
+            width: 24px;
+            height: 24px;
+            fill: #fff;
+            z-index: 1;
+        }
+
+        footer {
+            background-color: #6b46c1;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer p {
+            font-size: 0.875rem;
+        }
+
+        @media (max-width: 768px) {
+
+            header {
+                padding: 0.5rem;
+            }
+
+            nav {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav a {
+                margin-bottom: 0.5rem;
+            }
+
+            /* Styles for screens up to 768px width */
+            section {
+                max-width: 100%;
+                padding: 1rem;
+            }
+
+            .product-item {
+                flex-direction: column;
+                padding: 1rem;
+            }
+
+            .img {
+                height: 150px;
+                width: 150px;
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+
+            .description {
+                text-align: center;
+            }
+
+            .progress {
+                bottom: 1rem;
+                right: 1rem;
+                width: 40px;
+                height: 40px;
+            }
+
+            .progress svg {
+                width: 16px;
+                height: 16px;
+            }
+
+            .buyNow {
+                padding: 0.5rem 1rem;
+                font-size: 0.875rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+
+            /* Styles for screens 1024px and wider */
+            section {
+                max-width: 80%;
+            }
+        }
+
+        @media (max-width: 490px) {
+            .progress {
+                bottom: 4rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="flex justify-between items-center flex-wrap logo">
+            <a href="/home" class="flex items-center space-x-2 mb-2 md:mb-0">
+                <img src="https://th.bing.com/th?id=ODLS.7b56eff7-2e36-4afe-b129-6be999a41335&w=32&h=32&qlt=90&pcl=fffffa&o=6&pid=1.2"
+                    alt="Logo" class="h-8 w-8">
+                <h3 class="text-lg font-bold text-purple-800">E-Commerce Website</h3>
+            </a>
+            <ul class="flex space-x-4 text-purple-800 font-semibold flex-wrap">
+                <li><a href="/FAQ">FAQ?</a></li>
+                <li><a href="/myOrders">Your orders</a></li>
+                <li><a href="#">My Cart</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section>
+        <h2>Your Cart</h2>
+        <div class="product-item" id="Product_1">
+            <img src="1.webp" alt="Product 1" class="img">
+            <div class="description">
+                <h3>Product 1</h3>
+                <p>Description: Dress 1</p>
+                <p class="price">Rs200</p>
+                <p class="discount">15% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_2">
+            <img src="2.webp" alt="Product 2" class="img">
+            <div class="description">
+                <h3>Product 2</h3>
+                <p>Description: Dress 2</p>
+                <p class="price">Rs250</p>
+                <p class="discount">10% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_3">
+            <img src="3.webp" alt="Product 3" class="img">
+            <div class="description">
+                <h3>Product 3</h3>
+                <p>Description: Dress 3</p>
+                <p class="price">Rs300</p>
+                <p class="discount">17% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_4">
+            <img src="4.webp" alt="Product 4" class="img">
+            <div class="description">
+                <h3>Product 4</h3>
+                <p>Description: Dress 4</p>
+                <p class="price">Rs350</p>
+                <p class="discount">8% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_5">
+            <img src="5.webp" alt="Product 5" class="img">
+            <div class="description">
+                <h3>Product 5</h3>
+                <p>Description: Dress 5</p>
+                <p class="price">Rs400</p>
+                <p class="discount">20% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_6">
+            <img src="6.webp" alt="Product 6" class="img">
+            <div class="description">
+                <h3>Product 6</h3>
+                <p>Description: Dress 6</p>
+                <p class="price">Rs450</p>
+                <p class="discount">5% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_7">
+            <img src="7.webp" alt="Product 7" class="img">
+            <div class="description">
+                <h3>Product 7</h3>
+                <p>Description: Dress 7</p>
+                <p class="price">Rs500</p>
+                <p class="discount">13% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_8">
+            <img src="8.webp" alt="Product 8" class="img">
+            <div class="description">
+                <h3>Product 8</h3>
+                <p>Description: Dress 8</p>
+                <p class="price">Rs550</p>
+                <p class="discount">19% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_9">
+            <img src="9.webp" alt="Product 9" class="img">
+            <div class="description">
+                <h3>Product 9</h3>
+                <p>Description: Dress 9</p>
+                <p class="price">Rs600</p>
+                <p class="discount">7% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_10">
+            <img src="10.webp" alt="Product 10" class="img">
+            <div class="description">
+                <h3>Product 10</h3>
+                <p>Description: Dress 10</p>
+                <p class="price">Rs650</p>
+                <p class="discount">14% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_11">
+            <img src="11.webp" alt="Product 11" class="img">
+            <div class="description">
+                <h3>Product 11</h3>
+                <p>Description: Dress 11</p>
+                <p class="price">Rs700</p>
+                <p class="discount">2% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_12">
+            <img src="12.webp" alt="Product 12" class="img">
+            <div class="description">
+                <h3>Product 12</h3>
+                <p>Description: Dress 12</p>
+                <p class="price">Rs750</p>
+                <p class="discount">11% off</p>
+            </div>
+            <div></div>
+        </div>
+
+
+
+        <div class="product-item" id="Product_13">
+            <img src="/imgs/M1.webp" alt="Product 13" class="img">
+            <div class="description">
+                <h3>T-shirt</h3>
+                <p>Description: Casual</p>
+                <p class="price">Rs599</p>
+                <p class="discount">10% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_14">
+            <img src="/imgs/M2.webp" alt="Product 14" class="img">
+            <div class="description">
+                <h3>Jacket</h3>
+                <p>Description: Casual</p>
+                <p class="price">Rs1599</p>
+                <p class="discount">15% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_15">
+            <img src="/imgs/M3.webp" alt="Product 15" class="img">
+            <div class="description">
+                <h3>Shirt</h3>
+                <p>Description: Casual</p>
+                <p class="price">Rs599</p>
+                <p class="discount">20% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_16">
+            <img src="/imgs/M4.webp" alt="Product 16" class="img">
+            <div class="description">
+                <h3>White Shirt</h3>
+                <p>Description: Formal</p>
+                <p class="price">Rs999</p>
+                <p class="discount">25% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_17">
+            <img src="/imgs/M5.webp" alt="Product 17" class="img">
+            <div class="description">
+                <h3>Suit</h3>
+                <p>Description: Formal</p>
+                <p class="price">Rs11999</p>
+                <p class="discount">25% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_18">
+            <img src="/imgs/M6.webp" alt="Product 18" class="img">
+            <div class="description">
+                <h3>Shirt & Pant</h3>
+                <p>Description: Formal</p>
+                <p class="price">Rs3350</p>
+                <p class="discount">25% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_19">
+            <img src="/imgs/M7.webp" alt="Product 19" class="img">
+            <div class="description">
+                <h3>Jacket 2</h3>
+                <p>Description: Long Jacket</p>
+                <p class="price">Rs2999</p>
+                <p class="discount">25% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_20">
+            <img src="/imgs/M8.webp" alt="Product 20" class="img">
+            <div class="description">
+                <h3>Jeans & T-shirt</h3>
+                <p>Description: Denim</p>
+                <p class="price">Rs2599</p>
+                <p class="discount">22% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_21">
+            <img src="/imgs/M9.webp" alt="Product 21" class="img">
+            <div class="description">
+                <h3>Jacket 3</h3>
+                <p>Description: Denim</p>
+                <p class="price">Rs1499</p>
+                <p class="discount">23% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_22">
+            <img src="/imgs/M10.webp" alt="Product 22" class="img">
+            <div class="description">
+                <h3>Combo</h3>
+                <p>Description: Party Wear</p>
+                <p class="price">Rs3500</p>
+                <p class="discount">25% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_23">
+            <img src="/imgs/M11.webp" alt="Product 23" class="img">
+            <div class="description">
+                <h3>Shirt 2</h3>
+                <p>Description: Casual</p>
+                <p class="price">Rs999</p>
+                <p class="discount">25% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_24">
+            <img src="/imgs/M12.webp" alt="Product 24" class="img">
+            <div class="description">
+                <h3>Jacket 4</h3>
+                <p>Description: Denim</p>
+                <p class="price">Rs999</p>
+                <p class="discount">25% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_25">
+            <img src="/imgs/M13.webp" alt="Product 25" class="img">
+            <div class="description">
+                <h3>Cord-set</h3>
+                <p>Description: Party Wear</p>
+                <p class="price">Rs4350</p>
+                <p class="discount">20% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_26">
+            <img src="/imgs/M14.webp" alt="Product 26" class="img">
+            <div class="description">
+                <h3>Grey Suit</h3>
+                <p>Description: Formal</p>
+                <p class="price">Rs5599</p>
+                <p class="discount">15% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_27">
+            <img src="/imgs/M15.webp" alt="Product 27" class="img">
+            <div class="description">
+                <h3>White Coat</h3>
+                <p>Description: Formal</p>
+                <p class="price">Rs4350</p>
+                <p class="discount">15% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_28">
+            <img src="/imgs/M16.webp" alt="Product 28" class="img">
+            <div class="description">
+                <h3>3-piece Set</h3>
+                <p>Description: Party dress</p>
+                <p class="price">Rs8999</p>
+                <p class="discount">4% off</p>
+            </div>
+            <div></div>
+        </div>
+
+
+        <div class="product-item" id="Product_29">
+            <img src="/imgs/W1.webp" alt="Product 29" class="img">
+            <div class="description">
+                <h3>Over coat</h3>
+                <p>Description: Party wear</p>
+                <p class="price">Rs2000</p>
+                <p class="discount">17% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_30">
+            <img src="/imgs/W2.webp" alt="Product 30" class="img">
+            <div class="description">
+                <h3>Jeans</h3>
+                <p>Description: Denim</p>
+                <p class="price">Rs1500</p>
+                <p class="discount">5% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_31">
+            <img src="/imgs/W3.webp" alt="Product 31" class="img">
+            <div class="description">
+                <h3>Combo</h3>
+                <p>Description: Formals</p>
+                <p class="price">Rs5000</p>
+                <p class="discount">23% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_32">
+            <img src="/imgs/W4.webp" alt="Product 32" class="img">
+            <div class="description">
+                <h3>Shirt Jeans</h3>
+                <p>Description: Casual</p>
+                <p class="price">Rs2500</p>
+                <p class="discount">11% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_33">
+            <img src="/imgs/W5.webp" alt="Product 33" class="img">
+            <div class="description">
+                <h3>Crop top & Pant</h3>
+                <p>Description: Denim</p>
+                <p class="price">Rs2999</p>
+                <p class="discount">2% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_34">
+            <img src="/imgs/W6.webp" alt="Product 34" class="img">
+            <div class="description">
+                <h3>T-shirt & Jeans</h3>
+                <p>Description: Casual</p>
+                <p class="price">Rs3000</p>
+                <p class="discount">18% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_35">
+            <img src="/imgs/W7.webp" alt="Product 35" class="img">
+            <div class="description">
+                <h3>Dress</h3>
+                <p>Description: Floral</p>
+                <p class="price">Rs850</p>
+                <p class="discount">8% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_36">
+            <img src="/imgs/W8.webp" alt="Product 36" class="img">
+            <div class="description">
+                <h3>Co-ord set</h3>
+                <p>Description: Vibrant</p>
+                <p class="price">Rs1599</p>
+                <p class="discount">27% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_37">
+            <img src="/imgs/W9.webp" alt="Product 37" class="img">
+            <div class="description">
+                <h3>Lehenga</h3>
+                <p>Description: Party Wear</p>
+                <p class="price">Rs5999</p>
+                <p class="discount">13% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_38">
+            <img src="/imgs/W10.webp" alt="Product 38" class="img">
+            <div class="description">
+                <h3>Combo 2</h3>
+                <p>Description: Party Wear</p>
+                <p class="price">Rs3500</p>
+                <p class="discount">29% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_39">
+            <img src="/imgs/W11.webp" alt="Product 39" class="img">
+            <div class="description">
+                <h3>Patiyala</h3>
+                <p>Description: Casual</p>
+                <p class="price">Rs999</p>
+                <p class="discount">3% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_40">
+            <img src="/imgs/W12.webp" alt="Product 40" class="img">
+            <div class="description">
+                <h3>Sharara</h3>
+                <p>Description: Party Wear</p>
+                <p class="price">Rs2999</p>
+                <p class="discount">20% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_41">
+            <img src="/imgs/W13.webp" alt="Product 41" class="img">
+            <div class="description">
+                <h3>Lehenga 2</h3>
+                <p>Description: Party Wear</p>
+                <p class="price">Rs9999</p>
+                <p class="discount">10% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_42">
+            <img src="/imgs/W14.webp" alt="Product 42" class="img">
+            <div class="description">
+                <h3>Dress 2</h3>
+                <p>Description: Party wear</p>
+                <p class="price">Rs4599</p>
+                <p class="discount">30% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_43">
+            <img src="/imgs/W15.webp" alt="Product 43" class="img">
+            <div class="description">
+                <h3>Gown</h3>
+                <p>Description: Party wear</p>
+                <p class="price">Rs3250</p>
+                <p class="discount">19% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_44">
+            <img src="/imgs/W16.webp" alt="Product 44" class="img">
+            <div class="description">
+                <h3>Long skirt & Top</h3>
+                <p>Description: Party dress</p>
+                <p class="price">Rs1999</p>
+                <p class="discount">14% off</p>
+            </div>
+            <div></div>
+        </div>
+
+
+
+
+        <div class="product-item" id="Product_45">
+            <img src="/imgs/K1.webp" alt="Product 45" class="img">
+            <div class="description">
+                <h3>Frock</h3>
+                <p>Description: Party wear</p>
+                <p class="price">Rs2000</p>
+                <p class="discount">22% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_46">
+            <img src="/imgs/K2.webp" alt="Product 46" class="img">
+            <div class="description">
+                <h3>Dress</h3>
+                <p>Description: Floral</p>
+                <p class="price">Rs1500</p>
+                <p class="discount">10% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_47">
+            <img src="/imgs/K3.webp" alt="Product 47" class="img">
+            <div class="description">
+                <h3>T-shirt</h3>
+                <p>Description: Casual</p>
+                <p class="price">Rs500</p>
+                <p class="discount">25% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_48">
+            <img src="/imgs/K4.webp" alt="Product 48" class="img">
+            <div class="description">
+                <h3>Skirt Dress</h3>
+                <p>Description: Casual</p>
+                <p class="price">Rs950</p>
+                <p class="discount">17% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_49">
+            <img src="/imgs/K5.webp" alt="Product 49" class="img">
+            <div class="description">
+                <h3>Jeans</h3>
+                <p>Description: Denim</p>
+                <p class="price">Rs1199</p>
+                <p class="discount">28% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_50">
+            <img src="/imgs/K6.webp" alt="Product 50" class="img">
+            <div class="description">
+                <h3>T-shirt & Pant</h3>
+                <p>Description: Casual</p>
+                <p class="price">Rs1350</p>
+                <p class="discount">15% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_51">
+            <img src="/imgs/K7.webp" alt="Product 51" class="img">
+            <div class="description">
+                <h3>Jacket</h3>
+                <p>Description: Denim</p>
+                <p class="price">Rs350</p>
+                <p class="discount">23% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_52">
+            <img src="/imgs/K8.webp" alt="Product 52" class="img">
+            <div class="description">
+                <h3>Jeans & Jacket</h3>
+                <p>Description: Denim</p>
+                <p class="price">Rs1599</p>
+                <p class="discount">29% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_53">
+            <img src="/imgs/K9.webp" alt="Product 53" class="img">
+            <div class="description">
+                <h3>Set</h3>
+                <p>Description: Cotton</p>
+                <p class="price">Rs1350</p>
+                <p class="discount">6% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_54">
+            <img src="/imgs/K10.webp" alt="Product 54" class="img">
+            <div class="description">
+                <h3>Combo</h3>
+                <p>Description: Party Wear</p>
+                <p class="price">Rs3500</p>
+                <p class="discount">19% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_55">
+            <img src="/imgs/K11.webp" alt="Product 55" class="img">
+            <div class="description">
+                <h3>3-set</h3>
+                <p>Description: Casual</p>
+                <p class="price">Rs999</p>
+                <p class="discount">12% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_56">
+            <img src="/imgs/K12.webp" alt="Product 56" class="img">
+            <div class="description">
+                <h3>Sherwani</h3>
+                <p>Description: Party Wear</p>
+                <p class="price">Rs2999</p>
+                <p class="discount">30% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_57">
+            <img src="/imgs/K13.webp" alt="Product 57" class="img">
+            <div class="description">
+                <h3>Cord-set</h3>
+                <p>Description: Party Wear</p>
+                <p class="price">Rs1350</p>
+                <p class="discount">8% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_58">
+            <img src="/imgs/K14.webp" alt="Product 58" class="img">
+            <div class="description">
+                <h3>Multicolour Jacket</h3>
+                <p>Description: Casual</p>
+                <p class="price">Rs1599</p>
+                <p class="discount">21% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_59">
+            <img src="/imgs/K15.webp" alt="Product 59" class="img">
+            <div class="description">
+                <h3>Denim Jacket</h3>
+                <p>Description: Casual</p>
+                <p class="price">Rs350</p>
+                <p class="discount">14% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_60">
+            <img src="/imgs/K16.webp" alt="Product 60" class="img">
+            <div class="description">
+                <h3>Gown</h3>
+                <p>Description: Party dress</p>
+                <p class="price">Rs3000</p>
+                <p class="discount">3% off</p>
+            </div>
+            <div></div>
+        </div>
+
+
+
+        <div class="product-item" id="Product_61">
+            <img src="/imgs/H1.webp" alt="Homecare" class="img">
+            <div class="description">
+                <h3>Floral White</h3>
+                <p>Description: Cotton</p>
+                <p class="price">Rs599</p>
+                <p class="discount">5% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_62">
+            <img src="/imgs/H2.webp" alt="Homecare" class="img">
+            <div class="description">
+                <h3>Floral white & pink</h3>
+                <p>Description: Cotton</p>
+                <p class="price">Rs1599</p>
+                <p class="discount">15% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_63">
+            <img src="/imgs/H3.webp" alt="Homecare" class="img">
+            <div class="description">
+                <h3>Geometric Blue</h3>
+                <p>Description: Cotton</p>
+                <p class="price">Rs599</p>
+                <p class="discount">8% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_64">
+            <img src="/imgs/H4.webp" alt="Homecare" class="img">
+            <div class="description">
+                <h3>White with Pink</h3>
+                <p>Description: Minimal Floral</p>
+                <p class="price">Rs999</p>
+                <p class="discount">22% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_65">
+            <img src="/imgs/H5.webp" alt="Homecare" class="img">
+            <div class="description">
+                <h3>Geometric Multi</h3>
+                <p>Description: Cotton</p>
+                <p class="price">Rs499</p>
+                <p class="discount">12% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_66">
+            <img src="/imgs/H6.webp" alt="Homecare" class="img">
+            <div class="description">
+                <h3>Shutle Brown</h3>
+                <p>Description: Tera Cotton</p>
+                <p class="price">Rs1499</p>
+                <p class="discount">18% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_67">
+            <img src="/imgs/H7.webp" alt="Homecare" class="img">
+            <div class="description">
+                <h3>Monocromatic Peach</h3>
+                <p>Description: Silk</p>
+                <p class="price">Rs2999</p>
+                <p class="discount">9% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_68">
+            <img src="/imgs/H8.webp" alt="Homecare" class="img">
+            <div class="description">
+                <h3>Geometric mixed</h3>
+                <p>Description: Pure cotton</p>
+                <p class="price">Rs599</p>
+                <p class="discount">25% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_69">
+            <img src="/imgs/H9.webp" alt="Homecare" class="img">
+            <div class="description">
+                <h3>Floral Blue</h3>
+                <p>Description: Pure Cotton</p>
+                <p class="price">Rs599</p>
+                <p class="discount">3% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_70">
+            <img src="/imgs/H10.webp" alt="Homecare" class="img">
+            <div class="description">
+                <h3>Off-White</h3>
+                <p>Description: Cotton</p>
+                <p class="price">Rs699</p>
+                <p class="discount">29% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_71">
+            <img src="/imgs/H11.webp" alt="Homecare" class="img">
+            <div class="description">
+                <h3>Ocean Blue</h3>
+                <p>Description: Casual</p>
+                <p class="price">Rs699</p>
+                <p class="discount">17% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_72">
+            <img src="/imgs/H12.webp" alt="Homecare" class="img">
+            <div class="description">
+                <h3>Royal Blue</h3>
+                <p>Description: Volvet</p>
+                <p class="price">Rs999</p>
+                <p class="discount">14% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_73">
+            <img src="/imgs/H13.webp" alt="Homecare" class="img">
+            <div class="description">
+                <h3>Bright Pink</h3>
+                <p>Description: Pure Cotton</p>
+                <p class="price">Rs650</p>
+                <p class="discount">30% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_74">
+            <img src="/imgs/H14.webp" alt="Homecare" class="img">
+            <div class="description">
+                <h3>Floral Pink</h3>
+                <p>Description: Cotton</p>
+                <p class="price">Rs599</p>
+                <p class="discount">19% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_75">
+            <img src="/imgs/H15.webp" alt="Homecare" class="img">
+            <div class="description">
+                <h3>Geometric Lines</h3>
+                <p>Description: Cotton</p>
+                <p class="price">Rs750</p>
+                <p class="discount">2% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="product-item" id="Product_76">
+            <img src="/imgs/H16.webp" alt="Homecare" class="img">
+            <div class="description">
+                <h3>Geometric White</h3>
+                <p>Description: Cotton</p>
+                <p class="price">Rs999</p>
+                <p class="discount">7% off</p>
+            </div>
+            <div></div>
+        </div>
+
+        <div class="progress">
+            <div class="progress-circle"></div>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="transform:rotate(-90deg)">
+                <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+            </svg>
+        </div>
+
+        <a><button class="buyNow">BUY NOW</button></a>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 E-commerce Website. All rights reserved.</p>
+    </footer>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+
+        const logout= document.querySelector('nav ul').lastElementChild;
+        logout.addEventListener('click',()=>{
+            localStorage.cartItems=JSON.stringify([]);
+        })
+        let cartItems = []
+        // Retrieve cart items from local storage
+        console.log(Array.isArray(JSON.parse(localStorage.getItem("cartItems"))), localStorage.getItem("cartItems").length > 2);
+        if (Array.isArray(JSON.parse(localStorage.getItem("cartItems"))) && localStorage.getItem("cartItems").length > 2) {
+            const buyNow = document.querySelector('.buyNow');
+            buyNow.style.display = "block";
+            cartItems = JSON.parse(localStorage.getItem("cartItems"));
+            if (cartItems) {
+                let productItems = document.querySelectorAll('.product-item');
+                for (let i of cartItems) {
+                    for (let j of productItems) {
+                        if ((j.getAttribute('id')) === i.name) {
+                            j.style.display = "flex";
+                            let r = document.createElement('span');
+                            r.innerText = `Quantity: ${i.qty}`;
+                            r.style.padding = "10px";
+                            let plusbtn = document.createElement('button');
+                            let minusbtn = document.createElement('button');
+                            plusbtn.innerText = "+";
+                            minusbtn.innerText = "-";
+                            plusbtn.classList.add('plus-btn');
+                            minusbtn.classList.add('minus-btn');
+                            j.children[2].appendChild(plusbtn);
+                            j.children[2].appendChild(r);
+                            j.children[2].appendChild(minusbtn);
+                            minusbtn.addEventListener('click', () => {
+                                cartItems = JSON.parse(localStorage.getItem("cartItems"));
+                                for (let n of cartItems) {
+                                    if (n.name === i.name) {
+                                        i.qty = n.qty;
+                                        // r.innerText = `Quantity: ${n.qty}`;
+                                        break;
+                                    }
+                                }
+                                if (parseInt(i.qty) === 1) {
+                                    // cartItems = JSON.parse(localStorage.getItem("cartItems"));
+                                    // let newCartItems = [];
+                                    j.children[2].removeChild(r);
+                                    j.children[2].removeChild(plusbtn);
+                                    j.children[2].removeChild(minusbtn);
+                                    j.style.display = "none";
+                                    // console.log(cartItems.length);
+                                    localStorage.cartItems = JSON.stringify(newCartItems(cartItems, i));
+                                    // location.reload();
+                                    // localStorage.cartItems = JSON.stringify(newCartItems);
+                                }
+                                else {
+                                    for (let n of cartItems) {
+                                        if (n.name === i.name) {
+                                            n.qty -= 1;
+                                            r.innerText = `Quantity: ${n.qty}`;
+                                            break;
+                                        }
+                                    }
+                                    localStorage.cartItems = JSON.stringify(cartItems);
+                                }
+                            });
+                            plusbtn.addEventListener('click', () => {
+                                cartItems = JSON.parse(localStorage.getItem("cartItems"))
+                                for (let n of cartItems) {
+                                    if (n.name === i.name) {
+                                        n.qty += 1;
+                                        r.innerText = `Quantity: ${n.qty}`;
+                                        // console.log(r.innerText);
+                                        break;
+                                    }
+                                } localStorage.cartItems = JSON.stringify(cartItems);
+                            });
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        else {
+            // If cart is empty, display a message
+            let noItemMessage = document.createElement("img");
+            noItemMessage.src = "no-item-found-vector-flat-260nw-2085975523.webp";
+            noItemMessage.alt = "No items found";
+            document.querySelector('section').appendChild(noItemMessage);
+            document.querySelector('section').style.display = "flex";
+            document.querySelector('section').style.justifyContent = "center";
+            document.querySelector('section').style.flexDirection = "column";
+            document.querySelector('section').style.alignItems = "center";
+            document.querySelector('.buyNow').style.display = "none";
+        }
+        function newCartItems(cartItems, product) {
+            let newCartItems = [];
+            for (let i = 0; i < cartItems.length; i++) {
+                if (cartItems[i].name !== product.name) {
+                    newCartItems.push(cartItems[i]);
+                }
+            }
+            // }console.log(newCartItems);
+            return newCartItems;
+        }
+
+        let totalPrice = 0;
+        cartItems = []
+        // Retrieve cart items from local storage
+        if (JSON.parse(localStorage.getItem("cartItems")).length !== 0) {
+            cartItems = JSON.parse(localStorage.getItem("cartItems"));
+            if (cartItems) {
+                let productItems = document.querySelectorAll('.product-item');
+                for (let i of cartItems) {
+                    for (let j of productItems) {
+                        if ((j.getAttribute('id')) === i.name) {
+                            let price = j.querySelector('.price');
+                            let discount = j.querySelector('.discount');
+                            let discountPercentage = 0;
+                            let discountAmount = 0;
+                            let finalPrice = 0;
+                            for (let k = 0; k < discount.textContent.length; k++) {
+                                if (discount.textContent[k] === '%') {
+                                    discountPercentage = parseInt(discount.textContent.slice(0, k));
+                                    break;
+                                }
+                            }
+                            let plusBtn = j.querySelector('.plus-btn');
+                            let minusBtn = j.querySelector('.minus-btn');
+                            check(plusBtn, minusBtn);
+
+                            discountAmount = (parseInt(price.innerText.slice(2)) * discountPercentage) / 100;
+                            totalPrice += (parseInt(price.innerText.slice(2)) - discountAmount) * parseInt(j.querySelector('span').textContent.slice(10));
+                            break;
+                        }
+                    }
+                }
+            }
+        } if (totalPrice !== 0) {
+            let sec = document.querySelector('section');
+            let buyNow = document.querySelector('.buyNow');
+            let total = document.createElement('p');
+            total.innerText = `Total: Rs ${Math.round(totalPrice)}`;
+            total.style.fontSize = '20px';
+            total.style.fontWeight = 'bold';
+            total.style.paddingTop = '2rem';
+            sec.insertBefore(total, buyNow.parentElement);
+        }
+
+        function check(plus, minus) {
+            plus.addEventListener('click', () => {
+                location.reload();
+            });
+            minus.addEventListener('click', () => {
+                location.reload();
+            });
+        };
+
+
+        // Progress button functionality
+        const progressBtn = document.querySelector('.progress');
+        const progressCircle = document.querySelector('.progress-circle');
+        // const progressBar = document.querySelector('.progress-bar');
+
+        progressBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollProgress = (scrollTop / scrollHeight) * 100;
+            if (scrollProgress !== 0) {
+                progressBtn.style.display = "flex";
+            } else {
+                progressBtn.style.display = "none";
+            }
+            // progressBar.style.width = `${scrollProgress}%`;
+            progressCircle.style.backgroundImage = `conic-gradient(#6b46c1 ${scrollProgress}%, #e2e8f0 ${scrollProgress}%)`;
+        });
+
+
+        // Local storage accessibilty 
+
+        const buyNowCart = localStorage.getItem('cartItems');
+        let buy_now = document.querySelector(".buyNow");
+
+
+        function getProductNames() {
+            const productNames = [];
+            const cartItems = JSON.parse(localStorage.getItem("cartItems"));
+
+            if (cartItems) {
+                cartItems.forEach(item => {
+                    const productName = item.prodname;
+                    productNames.push(productName);
+                });
+            }
+            return productNames.toString();
+        }
+
+        function getProductDescriptions() {
+            const productDescriptions = [];
+            const cartItems = JSON.parse(localStorage.getItem("cartItems"));
+
+            if (cartItems) {
+                cartItems.forEach(item => {
+                    const productItem = document.getElementById(item.description);
+                    if (productItem) {
+                        const productDescription = productItem.querySelector('p:nth-child(2)').textContent;
+                        productDescriptions.push(productDescription);
+                    }
+                });
+            }
+            return productDescriptions.toString();
+        }
+
+        $(document).ready(function () {
+            $('.buyNow').click(function (e) {
+                e.preventDefault();
+                var formData = `name=Order&amount=${totalPrice}&description=${getProductDescriptions()}`;
+
+                $.ajax({
+                    url: "/createOrder",
+                    type: "POST",
+                    data: formData,
+                    success: function (res) {
+                        if (res.success) {
+                            var options = {
+                                "key": "" + res.key_id + "",
+                                "amount": "" + res.amount + "",
+                                "currency": "INR",
+                                "name": "" + res.product_name + "",
+                                "description": "" + res.description + "",
+                                "image": "https://dummyimage.com/600x400/000/fff",
+                                "order_id": "" + res.order_id + "",
+                                "handler": function (response) {
+                                    alert("Payment Succeeded");
+                                    // window.open("/","_self")
+                                    // Send the data to the server using the Fetch API
+                                    fetch('/buyNow', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json'
+                                        },
+                                        body: JSON.stringify({ buyNowCart })
+                                    })
+                                        .then(response => {
+                                            // Handle the server response
+                                            console.log('Server response:', response);
+
+                                        })
+                                        .catch(error => {
+                                            // Handle any errors
+                                            console.error('Error:', error);
+                                        });
+                                    localStorage.cartItems = JSON.stringify([]);
+                                    let noItemMessage = document.createElement("img");
+                                    noItemMessage.src = "no-item-found-vector-flat-260nw-2085975523.webp";
+                                    noItemMessage.alt = "No items found";
+                                    document.querySelector('section').appendChild(noItemMessage);
+                                    document.querySelector('section').style.display = "flex";
+                                    document.querySelector('section').style.justifyContent = "center";
+                                    document.querySelector('section').style.flexDirection = "column";
+                                    document.querySelector('section').style.alignItems = "center";
+                                    document.querySelector('.buyNow').style.display = "none";
+                                    location.reload();
+                                },
+                                "prefill": {
+                                    "contact": "" + res.contact + "",
+                                    "name": "" + res.name + "",
+                                    "email": "" + res.email + ""
+                                },
+                                "notes": {
+                                    "description": "" + res.description + ""
+                                },
+                                "theme": {
+                                    "color": "#2300a3"
+                                }
+                            };
+                            var razorpayObject = new Razorpay(options);
+                            razorpayObject.on('payment.failed', function (response) {
+                                alert("Payment Failed");
+                            });
+                            razorpayObject.open();
+                        }
+                        else {
+                            alert(res.msg);
+                        }
+                    }
+                })
+
+            });
+        });
+    </script>
+</body>
+
+</html>

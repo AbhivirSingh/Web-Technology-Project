@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-commerce Website</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Roboto:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
+        nav a {
+            color: #6b46c1;
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #805ad5;
+        }
+
+        .hero {
+            background-image: linear-gradient(to right, #6b46c1, #805ad5);
+            color: #fff;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            header {
+                padding: 0.5rem;
+            }
+
+            nav {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav a {
+                margin-bottom: 0.5rem;
+            }
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn-primary {
+            background-color: #6b46c1;
+            border-color: #6b46c1;
+            font-weight: 600;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #805ad5;
+            border-color: #805ad5;
+        }
+
+        .categories {
+            padding: 4rem 2rem;
+        }
+
+        .categories h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+
+        .category-item {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #fff;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .category-item:hover {
+            transform: translateY(-0.5rem);
+        }
+
+        .category-item img {
+            height: 100px;
+            width: 100px;
+            object-fit: contain;
+            margin-bottom: 1rem;
+        }
+
+        .category-item h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .category-item p {
+            color: #718096;
+            font-size: 0.875rem;
+        }
+
+        .featured-products {
+            padding: 4rem 2rem;
+        }
+
+        .featured-products h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+
+        .product-item {
+            background-color: #fff;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .product-item:hover {
+            transform: translateY(-0.5rem);
+        }
+
+        .product-item img {
+            height: 200px;
+            width: 100%;
+            object-fit: contain;
+            margin-bottom: 1rem;
+        }
+
+        .product-item h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-item p {
+            color: #718096;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .product-item .price {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #6b46c1;
+        }
+
+        .product-item .btn-primary {
+            margin-top: 1rem;
+        }
+
+        footer {
+            background-color: #6b46c1;
+            color: #fff;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 0.875rem;
+        }
+
+
+        .slider-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .slider-item {
+            flex: 0 0 100%;
+            width: 100%;
+        }
+
+        .slider-item img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .slider-controls {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 1rem;
+        }
+
+        .slider-control {
+            background-color: rgba(255, 255, 255, 0.5);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .slider-control:hover {
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .slider-control svg {
+            width: 20px;
+            height: 20px;
+            fill: #6b46c1;
+        }
+
+        .progress {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background-color: #6b46c1;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .progress:hover {
+            background-color: #805ad5;
+        }
+
+        .progress svg {
+            width: 24px;
+            height: 24px;
+            fill: #fff;
+        }
+
+
+
+
+
+        .progress {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background-color: #6b46c1;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            z-index: 999;
+        }
+
+        .progress:hover {
+            background-color: #805ad5;
+        }
+
+        .progress svg {
+            width: 24px;
+            height: 24px;
+            fill: #fff;
+        }
+
+
+        .progress {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background-color: transparent;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            z-index: 999;
+        }
+
+        .progress-circle {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-image: conic-gradient(#6b46c1 0%, #6b46c1 0%, #e2e8f0 0%);
+            transition: background-image 0.3s ease;
+        }
+
+        .progress:hover .progress-circle {
+            background-image: conic-gradient(#805ad5 0%, #805ad5 0%, #e2e8f0 0%);
+        }
+
+        .progress svg {
+            width: 24px;
+            height: 24px;
+            fill: #fff;
+            z-index: 1;
+        }
+
+        /* .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 5px;
+            background-color: #6b46c1;
+            transition: width 0.3s ease;
+            z-index: 998;
+        } */
+
+
+        .slider-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .slider-item {
+            flex: 0 0 100%;
+            width: 100%;
+        }
+
+        .slider-item img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .slider-controls {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 1rem;
+        }
+
+        .slider-control {
+            background-color: rgba(255, 255, 255, 0.5);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .slider-control:hover {
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .slider-control svg {
+            width: 20px;
+            height: 20px;
+            fill: #6b46c1;
+        }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slider-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #e2e8f0;
+            margin: 0 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .slider-dot.active {
+            background-color: #6b46c1;
+        }
+
+        .plus-btn,
+        .minus-btn {
+            background-color: #6b46c1;
+            border: none;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Add hover effect */
+        .plus-btn:hover,
+        .minus-btn:hover {
+            background-color: #805ad5;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="flex justify-between items-center flex-wrap">
+            <a href="#" class="flex items-center space-x-2 mb-2 md:mb-0">
+                <img src="https://th.bing.com/th?id=ODLS.7b56eff7-2e36-4afe-b129-6be999a41335&w=32&h=32&qlt=90&pcl=fffffa&o=6&pid=1.2"
+                    alt="Logo" class="h-8 w-8">
+                <h3 class="text-lg font-bold text-purple-800">E-Commerce Website</h3>
+            </a>
+            <ul class="flex space-x-4 text-purple-800 font-semibold flex-wrap">
+                <li><a href="/FAQ">FAQ?</a></li>
+                <li><a href="/myOrders">Your orders</a></li>
+                <li><a href="/cart_item">My Cart</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="slider-container">
+        <div class="slider">
+            <div class="slider-item">
+                <img src="1.webp" alt="Slider 1">
+            </div>
+            <div class="slider-item">
+                <img src="slider-2.webp" alt="Slider 2">
+            </div>
+            <div class="slider-item">
+                <img src="3.webp" alt="Slider 3">
+            </div>
+            <div class="slider-item">
+                <img src="2.webp" alt="Slider 3">
+            </div>
+            <div class="slider-item">
+                <img src="slider-5.webp" alt="Slider 3">
+            </div>
+        </div>
+        <div class="slider-controls">
+            <button class="slider-control slider-prev">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+                </svg>
+            </button>
+            <button class="slider-control slider-next">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+                </svg>
+            </button>
+        </div>
+        <div class="slider-dots">
+            <!-- <div class="slider-dot active"></div>
+            <div class="slider-dot"></div>
+            <div class="slider-dot"></div> -->
+        </div>
+    </section>
+
+    <section class="hero">
+        <h1>Welcome to our E-commerce Website</h1>
+        <p>Discover the best products and enjoy a seamless shopping experience.</p>
+        <button class="btn btn-primary">Shop Now</button>
+    </section>
+
+    <section class="categories">
+        <h2>Shop by Category</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+            <a href="/men" class="category-item">
+                <img src="cm.webp" alt="Men's Category">
+                <h3>Men's Wear</h3>
+                <p>Explore our wide range of men's fashion.</p>
+            </a>
+            <a href="/women" class="category-item">
+                <img src="cw.webp" alt="Women's Category">
+                <h3>Women's Wear</h3>
+                <p>Discover the latest women's fashion trends.</p>
+            </a>
+            <a href="/kids" class="category-item">
+                <img src="ck.webp" alt="Kids Category">
+                <h3>Kids Wear</h3>
+                <p>Find stylish and comfortable options for your little ones.</p>
+            </a>
+            <a href="/homecare" class="category-item">
+                <img src="ch.webp" alt="Homecare">
+                <h3>Homecare</h3>
+                <p>Upgrade your living space with our home essentials.</p>
+            </a>
+        </div>
+    </section>
+
+    <section class="featured-products">
+        <h2>Featured Products</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="product-item" id="Product_1">
+                <img src="1.webp" alt="Product 1">
+                <h3>Product 1</h3>
+                <p>Description: Dress 1</p>
+                <div class="flex justify-between items-center">
+                    <span class="price">Rs200</span>
+                    <button class="btn btn-primary add-to-cart-btn">Add to Cart</a>
+                </div>
+            </div>
+            <div class="product-item" id="Product_2">
+                <img src="2.webp" alt="Product 2">
+                <h3>Product 2</h3>
+                <p>Description: Dress 2</p>
+                <div class="flex justify-between items-center">
+                    <span class="price">Rs250</span>
+                    <button class="btn btn-primary add-to-cart-btn">Add to Cart</a>
+                </div>
+            </div>
+            <div class="product-item" id="Product_3">
+                <img src="3.webp" alt="Product 3">
+                <h3>Product 3</h3>
+                <p>Description: Dress 3</p>
+                <div class="flex justify-between items-center">
+                    <span class="price">Rs300</span>
+                    <button class="btn btn-primary add-to-cart-btn">Add to Cart</a>
+                </div>
+            </div>
+            <div class="product-item" id="Product_4">
+                <img src="4.webp" alt="Product 4">
+                <h3>Product 4</h3>
+                <p>Description: Dress 4</p>
+                <div class="flex justify-between items-center">
+                    <span class="price">Rs350</span>
+                    <button class="btn btn-primary add-to-cart-btn">Add to Cart</a>
+                </div>
+            </div>
+            <div class="product-item" id="Product_5">
+                <img src="5.webp" alt="Product 3">
+                <h3>Product 5</h3>
+                <p>Description: Dress 5</p>
+                <div class="flex justify-between items-center">
+                    <span class="price">Rs400</span>
+                    <button class="btn btn-primary add-to-cart-btn">Add to Cart</a>
+                </div>
+            </div>
+            <div class="product-item" id="Product_6">
+                <img src="6.webp" alt="Product 3">
+                <h3>Product 6</h3>
+                <p>Description: Dress 6</p>
+                <div class="flex justify-between items-center">
+                    <span class="price">Rs450</span>
+                    <button class="btn btn-primary add-to-cart-btn">Add to Cart</a>
+                </div>
+            </div>
+            <div class="product-item" id="Product_7">
+                <img src="7.webp" alt="Product 3">
+                <h3>Product 7</h3>
+                <p>Description: Dress 7</p>
+                <div class="flex justify-between items-center">
+                    <span class="price">Rs500</span>
+                    <button class="btn btn-primary add-to-cart-btn">Add to Cart</a>
+                </div>
+            </div>
+            <div class="product-item" id="Product_8">
+                <img src="8.webp" alt="Product 3">
+                <h3>Product 8</h3>
+                <p>Description: Dress 8</p>
+                <div class="flex justify-between items-center">
+                    <span class="price">Rs550</span>
+                    <button class="btn btn-primary add-to-cart-btn">Add to Cart</a>
+                </div>
+            </div>
+            <div class="product-item" id="Product_9">
+                <img src="9.webp" alt="Product 3">
+                <h3>Product 9</h3>
+                <p>Description: Dress 9</p>
+                <div class="flex justify-between items-center">
+                    <span class="price">Rs600</span>
+                    <button class="btn btn-primary add-to-cart-btn">Add to Cart</a>
+                </div>
+            </div>
+            <div class="product-item" id="Product_10">
+                <img src="10.webp" alt="Product 3">
+                <h3>Product 10</h3>
+                <p>Description: Dress 10</p>
+                <div class="flex justify-between items-center">
+                    <span class="price">Rs650</span>
+                    <button class="btn btn-primary add-to-cart-btn">Add to Cart</a>
+                </div>
+            </div>
+            <div class="product-item" id="Product_11">
+                <img src="11.webp" alt="Product 3">
+                <h3>Product 11</h3>
+                <p>Description: Dress 11</p>
+                <div class="flex justify-between items-center">
+                    <span class="price">Rs700</span>
+                    <button class="btn btn-primary add-to-cart-btn">Add to Cart</a>
+                </div>
+            </div>
+            <div class="product-item" id="Product_12">
+                <img src="12.webp" alt="Product 3">
+                <h3>Product 12</h3>
+                <p>Description: Dress 12</p>
+                <div class="flex justify-between items-center">
+                    <span class="price">Rs750</span>
+                    <button class="btn btn-primary add-to-cart-btn">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="progress">
+        <div class="progress-circle"></div>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="transform:rotate(-90deg)">
+            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+        </svg>
+    </div>
+
+    <!-- <div class="progress-bar"></div> -->
+
+
+    <footer>
+        <p>&copy; 2024 E-commerce Website. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+
+        const slider = document.querySelector('.slider');
+        const sliderItems = document.querySelectorAll('.slider-item');
+        const prevBtn = document.querySelector('.slider-prev');
+        const nextBtn = document.querySelector('.slider-next');
+        let sliderDots = document.querySelector('.slider-dots');
+        const sliderContainer = document.querySelector('.slider-container');
+
+        let currentIndex = 0;
+        let autoSlideInterval, sliderDot;
+
+        for (let i = 0; i < slider.children.length; i++) {
+            sliderDot = document.createElement('div');
+            sliderDot.classList.add('slider-dot');
+            sliderDots.appendChild(sliderDot);
+        }
+        sliderDots = document.querySelectorAll('.slider-dot');
+
+        function moveSlider(index) {
+            slider.style.transform = `translateX(-${index * 100}%)`;
+            sliderDots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+        }
+
+        function startAutoSlide() {
+            autoSlideInterval = setInterval(() => {
+                currentIndex = (currentIndex + 1) % sliderItems.length;
+                moveSlider(currentIndex);
+            }, 2500);
+        }
+
+        function stopAutoSlide() {
+            clearInterval(autoSlideInterval);
+        }
+
+        prevBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + sliderItems.length) % sliderItems.length;
+            moveSlider(currentIndex);
+            // stopAutoSlide();
+            // startAutoSlide();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % sliderItems.length;
+            moveSlider(currentIndex);
+            // stopAutoSlide();
+            // startAutoSlide();
+        });
+
+        sliderDots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentIndex = index;
+                moveSlider(currentIndex);
+                // stopAutoSlide();
+                // startAutoSlide();
+            });
+        });
+
+        sliderContainer.addEventListener('mouseover', () => {
+            stopAutoSlide();
+        });
+
+        sliderContainer.addEventListener('mouseout', () => {
+            startAutoSlide();
+        });
+
+        startAutoSlide();
+
+
+        const shopNow = document.querySelector('.hero button');
+        shopNow.addEventListener('click', () => {
+            window.scrollTo({
+                top: 800,
+                behavior: "smooth"
+            });
+        });
+        // Progress button functionality
+        const progressBtn = document.querySelector('.progress');
+        const progressCircle = document.querySelector('.progress-circle');
+        // const progressBar = document.querySelector('.progress-bar');
+
+        progressBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollProgress = (scrollTop / scrollHeight) * 100;
+            if (scrollProgress !== 0) {
+                progressBtn.style.display = "flex";
+            } else {
+                progressBtn.style.display = "none";
+            }
+            // progressBar.style.width = `${scrollProgress}%`;
+            progressCircle.style.backgroundImage = `conic-gradient(#6b46c1 ${scrollProgress}%, #e2e8f0 ${scrollProgress}%)`;
+        });
+
+        // Check if there are already items in the cart
+        if (localStorage.cartItems) {
+            // Retrieve existing cart items from local storage
+            let c = JSON.parse(localStorage.cartItems);
+            if (c) {
+                let productItems = document.querySelectorAll('.product-item');
+                for (var i of c) {
+                    for (let j of productItems) {
+                        if (j.getAttribute('id') === i.name) {
+                            j.querySelector('button').style.display = "none";
+                            plusMinusBtn(i.name, j.querySelector('button'));
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        // Function to handle adding a product to the cart and storing it in local storage
+        function addToCart(productName, button) {
+            // Check if local storage is supported by the browser
+            // Initialize an empty array to store cart items
+            let cartItems = [];
+            // Check if there are already items in the cart
+            if (localStorage.cartItems) {
+                // Retrieve existing cart items from local storage
+                cartItems = JSON.parse(localStorage.cartItems);
+            }
+            let isFound = false;
+            for (var i of cartItems) {
+                if (i.name === productName) {
+                    isFound = true;
+                    break;
+                }
+            }
+            if (!isFound) {
+                // Create an object representing the product to be added to cart
+                let product = {
+                    name: productName,
+                    qty: 1
+                };
+                // Add the product to the cart items array
+                cartItems.push(product);
+                // Store the updated cart items array in local storage
+                localStorage.cartItems = JSON.stringify(cartItems);
+            }
+            plusMinusBtn(productName, button);
+        }
+
+        // Add event listeners to all "Add to Cart" buttons
+        let addToCartButtons = document.querySelectorAll(".add-to-cart-btn");
+        addToCartButtons.forEach(function (button) {
+            button.addEventListener("click", function (event) {
+                let productContainer = event.target.closest(".product-item");
+                let productName = productContainer.getAttribute("id");
+                // let productPrice = productContainer.querySelector("p:nth-of-type(3)").textContent.split(":")[1].trim();
+                addToCart(productName, button);
+            });
+        });
+
+        function plusMinusBtn(productName, button) {
+            // Initialize an empty array to store cart items
+            let cartItems = [];
+            // Check if there are already items in the cart
+            if (localStorage.cartItems) {
+                // Retrieve existing cart items from local storage
+                cartItems = JSON.parse(localStorage.cartItems);
+            }
+            button.style.display = "none";
+            let a = button.parentElement;
+            let plusbtn = document.createElement('button');
+            let productqty = document.createElement('span');
+            let minusbtn = document.createElement('button');
+            plusbtn.innerText = "+";
+            minusbtn.innerText = "-";
+            plusbtn.classList.add('plus-btn');
+            productqty.classList.add('productqty');
+            minusbtn.classList.add('minus-btn');
+            a.appendChild(plusbtn);
+            a.appendChild(productqty);
+            a.appendChild(minusbtn);
+            for (let i of cartItems) {
+                if (i.name === productName) {
+                    productqty.innerText = i.qty;
+                    break;
+                }
+            }
+            minusbtn.addEventListener('click', () => {
+                if (localStorage.cartItems) {
+                    // Retrieve existing cart items from local storage
+                    cartItems = JSON.parse(localStorage.cartItems);
+                }
+                if (parseInt(productqty.innerText) === 1) {
+                    plusbtn.remove();
+                    minusbtn.remove();
+                    productqty.remove();
+                    let newCartItems = [];
+                    for (let i = 0; i < cartItems.length; i++) {
+                        if (cartItems[i].name !== productName) {
+                            newCartItems.push(cartItems[i]);
+                        }
+                    } localStorage.cartItems = JSON.stringify(newCartItems);
+                    button.style.display = "inline";
+                } else {
+                    for (let i of cartItems) {
+                        if (i.name === productName) {
+                            i.qty -= 1;
+                            break;
+                        }
+                    } localStorage.cartItems = JSON.stringify(cartItems); productqty.innerText = parseInt(productqty.innerText)
+                        - 1;
+                }
+            }); plusbtn.addEventListener('click', () => {
+                if (localStorage.cartItems) {
+                    // Retrieve existing cart items from local storage
+                    cartItems = JSON.parse(localStorage.cartItems);
+                }
+                for (let i of cartItems) {
+                    if (i.name === productName) {
+                        i.qty += 1;
+                        break;
+                    }
+                } localStorage.cartItems = JSON.stringify(cartItems);
+                productqty.innerText = parseInt(productqty.innerText) + 1;
+            });
+        }
+
+
+    </script>
+</body>
+
+</html>
