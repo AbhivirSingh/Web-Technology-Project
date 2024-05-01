@@ -514,7 +514,12 @@
                 // Create an object representing the product to be added to cart
                 let product = {
                     name: productName,
-                    qty: 1
+                    qty: 1,
+                    description: button.parentElement.parentElement.parentElement.querySelector('p').innerText,
+                    price: button.parentElement.querySelector('.price').innerText,
+                    prodname: button.parentElement.parentElement.parentElement.querySelector('h3').innerText,
+                    img: button.parentElement.parentElement.parentElement.querySelector('img').getAttribute('src'),
+                    discount: button.parentElement.parentElement.querySelector('.Discount').innerText.match(/\d+/)[0]
                 };
                 // Add the product to the cart items array
                 cartItems.push(product);
