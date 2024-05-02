@@ -293,8 +293,9 @@
 
             /* Styles for screens up to 768px width */
             section {
-                max-width: 100%;
-                padding: 1rem;
+                max-width: 95%;
+                padding: 2rem;
+                margin-bottom: 8rem;
             }
 
             .product-item {
@@ -1228,9 +1229,9 @@
 
     <script>
 
-        const logout= document.querySelector('nav ul').lastElementChild;
-        logout.addEventListener('click',()=>{
-            localStorage.cartItems=JSON.stringify([]);
+        const logout = document.querySelector('nav ul').lastElementChild;
+        logout.addEventListener('click', () => {
+            localStorage.cartItems = JSON.stringify([]);
         })
         let cartItems = []
         // Retrieve cart items from local storage
