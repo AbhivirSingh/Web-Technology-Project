@@ -1,0 +1,1671 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-commerce Website</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Roboto:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
+        nav a {
+            color: #6b46c1;
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #805ad5;
+        }
+
+        .hero {
+            background-image: linear-gradient(to right, #6b46c1, #805ad5);
+            color: #fff;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            header {
+                padding: 0.5rem;
+            }
+
+            nav {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav a {
+                margin-bottom: 0.5rem;
+            }
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn-primary {
+            background-color: #6b46c1;
+            border-color: #6b46c1;
+            font-weight: 600;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #805ad5;
+            border-color: #805ad5;
+        }
+
+        .categories {
+            padding: 4rem 2rem;
+        }
+
+        .categories h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+
+        .category-item {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #fff;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .category-item:hover {
+            transform: translateY(-0.5rem);
+        }
+
+        .category-item img {
+            height: 100px;
+            width: 100px;
+            object-fit: contain;
+            margin-bottom: 1rem;
+        }
+
+        .category-item h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .category-item p {
+            color: #718096;
+            font-size: 0.875rem;
+        }
+
+        .featured-products {
+            padding: 4rem 2rem;
+        }
+
+        .featured-products h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+
+        .product-item {
+            background-color: #fff;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+            display: none;
+        }
+
+        .product-item:hover {
+            transform: translateY(-0.5rem);
+        }
+
+        .product-item img {
+            height: 200px;
+            width: 100%;
+            object-fit: contain;
+            margin-bottom: 1rem;
+        }
+
+        .product-item h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-item p {
+            color: #718096;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .product-item .price {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #6b46c1;
+        }
+
+        .product-item div p {
+            font-weight: bolder;
+            text-align: left;
+            margin-bottom: 0rem;
+            color: #4F6F52;
+        }
+
+        footer {
+            background-color: #6b46c1;
+            color: #fff;
+            padding: 2rem;
+            text-align: center;
+            bottom: 0;
+            position: fixed;
+            width: 100%;
+        }
+
+        footer p {
+            font-size: 0.875rem;
+        }
+
+
+        .slider-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .slider-item {
+            flex: 0 0 100%;
+            width: 100%;
+        }
+
+        .slider-item img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .slider-controls {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 1rem;
+        }
+
+        .slider-control {
+            background-color: rgba(255, 255, 255, 0.5);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .slider-control:hover {
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .slider-control svg {
+            width: 20px;
+            height: 20px;
+            fill: #6b46c1;
+        }
+
+        .progress {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background-color: #6b46c1;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .progress:hover {
+            background-color: #805ad5;
+        }
+
+        .progress svg {
+            width: 24px;
+            height: 24px;
+            fill: #fff;
+        }
+
+
+
+
+
+        .progress {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background-color: #6b46c1;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            z-index: 999;
+        }
+
+        .progress:hover {
+            background-color: #805ad5;
+        }
+
+        .progress svg {
+            width: 24px;
+            height: 24px;
+            fill: #fff;
+        }
+
+
+        .progress {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background-color: transparent;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            z-index: 999;
+            display: none;
+        }
+
+        .progress-circle {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-image: conic-gradient(#6b46c1 0%, #6b46c1 0%, #e2e8f0 0%);
+            transition: background-image 0.3s ease;
+        }
+
+        .progress:hover .progress-circle {
+            background-image: conic-gradient(#805ad5 0%, #805ad5 0%, #e2e8f0 0%);
+        }
+
+        .progress svg {
+            width: 24px;
+            height: 24px;
+            fill: #fff;
+            z-index: 1;
+        }
+
+        /* .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 5px;
+            background-color: #6b46c1;
+            transition: width 0.3s ease;
+            z-index: 998;
+        } */
+
+
+        .slider-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .slider-item {
+            flex: 0 0 100%;
+            width: 100%;
+        }
+
+        .slider-item img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .slider-controls {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 1rem;
+        }
+
+        .slider-control {
+            background-color: rgba(255, 255, 255, 0.5);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .slider-control:hover {
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .slider-control svg {
+            width: 20px;
+            height: 20px;
+            fill: #6b46c1;
+        }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slider-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #e2e8f0;
+            margin: 0 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .slider-dot.active {
+            background-color: #6b46c1;
+        }
+
+        .plus-btn,
+        .minus-btn {
+            background-color: #6b46c1;
+            border: none;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Add hover effect */
+        .plus-btn:hover,
+        .minus-btn:hover {
+            background-color: #805ad5;
+        }
+
+        form {
+            padding-top: 3rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search {
+            position: relative;
+            width: 60%;
+            display: flex;
+            align-items: center;
+            padding: 14px;
+            border-radius: 28px;
+            background: white;
+            transition: box-shadow 0.25s;
+            overflow: hidden;
+        }
+
+        .search::before {
+            content: '';
+            position: absolute;
+            top: var(--y);
+            left: var(--x);
+            transform: translate(-50%, -50%);
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: #805ad5;
+            opacity: 0.3;
+            transition: width 0.5s, height 0.5s;
+        }
+
+        .search:hover::before {
+            width: 70px;
+            height: 70px;
+        }
+
+        .search:focus-within {
+            box-shadow: 0 0 2px rgba(0, 0, 0, 0.75);
+        }
+
+        .search-input {
+            z-index: 1;
+            margin-left: 14px;
+            outline: none;
+            border: none;
+            background-color: transparent;
+            flex: 1;
+        }
+
+        .search-input::placeholder,
+        .search-icon {
+            z-index: 1;
+            color: rgba(0, 0, 0, 0.25)
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="flex justify-between items-center flex-wrap">
+            <a href="#" class="flex items-center space-x-2 mb-2 md:mb-0">
+                <img src="https://th.bing.com/th?id=ODLS.7b56eff7-2e36-4afe-b129-6be999a41335&w=32&h=32&qlt=90&pcl=fffffa&o=6&pid=1.2"
+                    alt="Logo" class="h-8 w-8">
+                <h3 class="text-lg font-bold text-purple-800">E-Commerce Website</h3>
+            </a>
+            <ul class="flex space-x-4 text-purple-800 font-semibold flex-wrap">
+                <li><a href="/FAQ">FAQ?</a></li>
+                <li><a href="/myOrders">Your orders</a></li>
+                <li><a href="/cart_item">My Cart</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <form action="/search" method="POST">
+        <div class="search">
+            <span class="search-icon material-symbols-outlined">search</span>
+            <input type="search" name="query" class="search-input" placeholder="Search" value="<%= query %>">
+        </div>
+    </form>
+
+    <section class="featured-products">
+        <h2>Searches for <%= query %>
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            <div class="product-item" id="Product_1">
+                <img src="1.webp" alt="Product 1">
+                <h3>Product 1</h3>
+                <p>Description: Dress 1</p>
+                <div>
+                    <p class="Discount">Get 15% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs200</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_2">
+                <img src="2.webp" alt="Product 2">
+                <h3>Product 2</h3>
+                <p>Description: Dress 2</p>
+                <div>
+                    <p class="Discount">Get 10% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs250</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_3">
+                <img src="3.webp" alt="Product 3">
+                <h3>Product 3</h3>
+                <p>Description: Dress 3</p>
+                <div>
+                    <p class="Discount">Get 17% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs300</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_4">
+                <img src="4.webp" alt="Product 4">
+                <h3>Product 4</h3>
+                <p>Description: Dress 4</p>
+                <div>
+                    <p class="Discount">Get 8% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs350</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_5">
+                <img src="5.webp" alt="Product 3">
+                <h3>Product 5</h3>
+                <p>Description: Dress 5</p>
+                <div>
+                    <p class="Discount">Get 20% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs400</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_6">
+                <img src="6.webp" alt="Product 3">
+                <h3>Product 6</h3>
+                <p>Description: Dress 6</p>
+                <div>
+                    <p class="Discount">Get 5% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs450</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_7">
+                <img src="7.webp" alt="Product 3">
+                <h3>Product 7</h3>
+                <p>Description: Dress 7</p>
+                <div>
+                    <p class="Discount">Get 13% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs500</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_8">
+                <img src="8.webp" alt="Product 3">
+                <h3>Product 8</h3>
+                <p>Description: Dress 8</p>
+                <div>
+                    <p class="Discount">Get 19% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs550</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_9">
+                <img src="9.webp" alt="Product 3">
+                <h3>Product 9</h3>
+                <p>Description: Dress 9</p>
+                <div>
+                    <p class="Discount">Get 7% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs600</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_10">
+                <img src="10.webp" alt="Product 3">
+                <h3>Product 10</h3>
+                <p>Description: Dress 10</p>
+                <div>
+                    <p class="Discount">Get 14% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs650</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_11">
+                <img src="11.webp" alt="Product 3">
+                <h3>Product 11</h3>
+                <p>Description: Dress 11</p>
+                <div>
+                    <p class="Discount">Get 2% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs700</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_12">
+                <img src="12.webp" alt="Product 3">
+                <h3>Product 12</h3>
+                <p>Description: Dress 12</p>
+                <div>
+                    <p class="Discount">Get 11% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs750</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_13">
+                <img src="/imgs/M1.webp" alt="Men">
+                <h3>T-shirt</h3>
+                <p>Description: Casual</p>
+                <div>
+                    <p class="Discount">Get 10% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs599</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_14">
+                <img src="/imgs/M2.webp" class="img" alt="Men">
+                <h3>Jacket</h3>
+                <p>Description: Casual</p>
+                <div>
+                    <p class="Discount">Get 15% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs1599</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_15">
+                <img src="/imgs/M3.webp" class="img" alt="Men">
+                <h3>Shirt</h3>
+                <p>Description: Casual</p>
+                <div>
+                    <p class="Discount">Get 20% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs599</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_16">
+                <img src="/imgs/M4.webp" class="img" alt="Men">
+                <h3>White Shirt</h3>
+                <p>Description: Formal</p>
+                <div>
+                    <p class="Discount">Get 25% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs999</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_17">
+                <img src="/imgs/M5.webp" class="img" alt="Men">
+                <h3>Suit</h3>
+                <p>Description: Formal</p>
+                <div>
+                    <p class="Discount">Get 25% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs11999</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_18">
+                <img src="/imgs/M6.webp" class="img" alt="Men">
+                <h3>Shirt & Pant</h3>
+                <p>Description: Formal</p>
+                <div>
+                    <p class="Discount">Get 25% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs3350</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_19">
+                <img src="/imgs/M7.webp" class="img" alt="Men">
+                <h3>Jacket 2</h3>
+                <p>Description: Long Jacket</p>
+                <div>
+                    <p class="Discount">Get 25% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs2999</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_20">
+                <img src="/imgs/M8.webp" class="img" alt="Men">
+                <h3>Jeans & T-shirt</h3>
+                <p>Description: Denim</p>
+                <div>
+                    <p class="Discount">Get 22% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs2599</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_21">
+                <img src="/imgs/M9.webp" class="img" alt="Men">
+                <h3>Jacket 3</h3>
+                <p>Description: Denim</p>
+                <div>
+                    <p class="Discount">Get 23% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs1499</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_22">
+                <img src="/imgs/M10.webp" class="img" alt="Men">
+                <h3>Combo</h3>
+                <p>Description: Party Wear</p>
+                <div>
+                    <p class="Discount">Get 25% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs3500</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_23">
+                <img src="/imgs/M11.webp" class="img" alt="Men">
+                <h3>Shirt 2</h3>
+                <p>Description: Casual</p>
+                <div>
+                    <p class="Discount">Get 25% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs999</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_24">
+                <img src="/imgs/M12.webp" class="img" alt="Men">
+                <h3>Jacket 4</h3>
+                <p>Description: Denim</p>
+                <div>
+                    <p class="Discount">Get 25% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs999</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_25">
+                <img src="/imgs/M13.webp" class="img" alt="Men">
+                <h3>Cord-set</h3>
+                <p>Description: Party Wear</p>
+                <div>
+                    <p class="Discount">Get 20% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs4350</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_26">
+                <img src="/imgs/M14.webp" class="img" alt="Men">
+                <h3>Grey Suit</h3>
+                <p>Description: Formal</p>
+                <div>
+                    <p class="Discount">Get 15% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs5599</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_27">
+                <img src="/imgs/M15.webp" class="img" alt="Men">
+                <h3>White Coat</h3>
+                <p>Description: Formal</p>
+                <div>
+                    <p class="Discount">Get 15% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs4350</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_28">
+                <img src="/imgs/M16.webp" class="img" alt="Men">
+                <h3>3-piece Set</h3>
+                <p>Description: Party dress</p>
+                <div>
+                    <p class="Discount">Get 4% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs8999</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_29">
+                <img src="/imgs/W1.webp" alt="Women">
+                <h3>Over coat</h3>
+                <p>Description: Party wear</p>
+                <div>
+                    <p class="Discount">Get 17% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs2000</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_30">
+                <img src="/imgs/W2.webp" class="img" alt="Women">
+                <h3>Jeans</h3>
+                <p>Description: Denim</p>
+                <div>
+                    <p class="Discount">Get 5% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs1500</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_31">
+                <img src="/imgs/W3.webp" class="img" alt="Women">
+                <h3>Combo</h3>
+                <p>Description: Formals</p>
+                <div>
+                    <p class="Discount">Get 23% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs5000</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_32">
+                <img src="/imgs/W4.webp" class="img" alt="Women">
+                <h3>Shirt Jeans</h3>
+                <p>Description: Casual</p>
+                <div>
+                    <p class="Discount">Get 11% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs2500</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_33">
+                <img src="/imgs/W5.webp" class="img" alt="Women">
+                <h3>Crop top & Pant</h3>
+                <p>Description: Denim</p>
+                <div>
+                    <p class="Discount">Get 2% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs2999</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_34">
+                <img src="/imgs/W6.webp" class="img" alt="Women">
+                <h3>T-shirt & Jeans</h3>
+                <p>Description: Casual</p>
+                <div>
+                    <p class="Discount">Get 18% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs3000</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_35">
+                <img src="/imgs/W7.webp" class="img" alt="Women">
+                <h3>Dress</h3>
+                <p>Description: Floral</p>
+                <div>
+                    <p class="Discount">Get 8% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs850</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_36">
+                <img src="/imgs/W8.webp" class="img" alt="Women">
+                <h3>Co-ord set</h3>
+                <p>Description: Vibrant</p>
+                <div>
+                    <p class="Discount">Get 27% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs1599</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_37">
+                <img src="/imgs/W9.webp" class="img" alt="Women">
+                <h3>Lehenga</h3>
+                <p>Description: Party Wear</p>
+                <div>
+                    <p class="Discount">Get 13% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs5999</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_38">
+                <img src="/imgs/W10.webp" class="img" alt="Women">
+                <h3>Combo 2</h3>
+                <p>Description: Party Wear</p>
+                <div>
+                    <p class="Discount">Get 29% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs3500</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_39">
+                <img src="/imgs/W11.webp" class="img" alt="Women">
+                <h3>Patiyala</h3>
+                <p>Description: Casual</p>
+                <div>
+                    <p class="Discount">Get 3% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs999</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_40">
+                <img src="/imgs/W12.webp" class="img" alt="Women">
+                <h3>Sharara</h3>
+                <p>Description: Party Wear</p>
+                <div>
+                    <p class="Discount">Get 20% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs2999</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_41">
+                <img src="/imgs/W13.webp" class="img" alt="Women">
+                <h3>Lehenga 2</h3>
+                <p>Description: Party Wear</p>
+                <div>
+                    <p class="Discount">Get 10% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs9999</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_42">
+                <img src="/imgs/W14.webp" class="img" alt="Women">
+                <h3>Dress 2</h3>
+                <p>Description: Party wear</p>
+                <div>
+                    <p class="Discount">Get 30% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs4599</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_43">
+                <img src="/imgs/W15.webp" class="img" alt="Women">
+                <h3>Gown</h3>
+                <p>Description: Party wear</p>
+                <div>
+                    <p class="Discount">Get 19% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs3250</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_44">
+                <img src="/imgs/W16.webp" class="img" alt="Women">
+                <h3>Long skirt & Top</h3>
+                <p>Description: Party dress</p>
+                <div>
+                    <p class="Discount">Get 14% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs1999</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_45">
+                <img src="/imgs/K1.webp" alt="kids">
+                <h3>Frock</h3>
+                <p>Description: Party wear</p>
+                <div>
+                    <p class="Discount">Get 22% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs2000</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_46">
+                <img src="/imgs/K2.webp" class="img" alt="kids">
+                <h3>Dress</h3>
+                <p>Description: Floral</p>
+                <div>
+                    <p class="Discount">Get 10% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs1500</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_47">
+                <img src="/imgs/K3.webp" class="img" alt="kids">
+                <h3>T-shirt</h3>
+                <p>Description: Casual</p>
+                <div>
+                    <p class="Discount">Get 25% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs500</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_48">
+                <img src="/imgs/K4.webp" class="img" alt="kids">
+                <h3>Skirt Dress</h3>
+                <p>Description: Casual</p>
+                <div>
+                    <p class="Discount">Get 17% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs950</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_49">
+                <img src="/imgs/K5.webp" class="img" alt="kids">
+                <h3>Jeans</h3>
+                <p>Description: Denim</p>
+                <div>
+                    <p class="Discount">Get 28% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs1199</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_50">
+                <img src="/imgs/K6.webp" class="img" alt="kids">
+                <h3>T-shirt & Pant</h3>
+                <p>Description: Casual</p>
+                <div>
+                    <p class="Discount">Get 15% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs1350</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_51">
+                <img src="/imgs/K7.webp" class="img" alt="kids">
+                <h3>Jacket</h3>
+                <p>Description: Denim</p>
+                <div>
+                    <p class="Discount">Get 23% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs350</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_52">
+                <img src="/imgs/K8.webp" class="img" alt="kids">
+                <h3>Jeans & Jacket</h3>
+                <p>Description: Denim</p>
+                <div>
+                    <p class="Discount">Get 29% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs1599</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_53">
+                <img src="/imgs/K9.webp" class="img" alt="kids">
+                <h3>Set</h3>
+                <p>Description: Cotton</p>
+                <div>
+                    <p class="Discount">Get 6% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs1350</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_54">
+                <img src="/imgs/K10.webp" class="img" alt="kids">
+                <h3>Combo</h3>
+                <p>Description: Party Wear</p>
+                <div>
+                    <p class="Discount">Get 19% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs3500</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_55">
+                <img src="/imgs/K11.webp" class="img" alt="kids">
+                <h3>3-set</h3>
+                <p>Description: Casual</p>
+                <div>
+                    <p class="Discount">Get 12% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs999</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_56">
+                <img src="/imgs/K12.webp" class="img" alt="kids">
+                <h3>Sherwani</h3>
+                <p>Description: Party Wear</p>
+                <div>
+                    <p class="Discount">Get 30% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs2999</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_57">
+                <img src="/imgs/K13.webp" class="img" alt="kids">
+                <h3>Cord-set</h3>
+                <p>Description: Party Wear</p>
+                <div>
+                    <p class="Discount">Get 8% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs1350</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_58">
+                <img src="/imgs/K14.webp" class="img" alt="kids">
+                <h3>Multicolour Jacket</h3>
+                <p>Description: Casual</p>
+                <div>
+                    <p class="Discount">Get 21% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs1599</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_59">
+                <img src="/imgs/K15.webp" class="img" alt="kids">
+                <h3>Denim Jacket</h3>
+                <p>Description: Casual</p>
+                <div>
+                    <p class="Discount">Get 14% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs350</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_60">
+                <img src="/imgs/K16.webp" class="img" alt="kids">
+                <h3>Gown</h3>
+                <p>Description: Party dress</p>
+                <div>
+                    <p class="Discount">Get 3% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs3000</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_61">
+                <img src="/imgs/H1.webp" alt="Homecare">
+                <h3>Floral White</h3>
+                <p>Description: Cotton</p>
+                <div>
+                    <p class="Discount">Get 5% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs599</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_62">
+                <img src="/imgs/H2.webp" alt="Homecare">
+                <h3>Floral white & pink</h3>
+                <p>Description: Cotton</p>
+                <div>
+                    <p class="Discount">Get 15% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs1599</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_63">
+                <img src="/imgs/H3.webp" alt="Homecare">
+                <h3>Geometric Blue</h3>
+                <p>Description: Cotton</p>
+                <div>
+                    <p class="Discount">Get 8% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs599</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_64">
+                <img src="/imgs/H4.webp" alt="Homecare">
+                <h3>White with Pink</h3>
+                <p>Description: Minimal Floral</p>
+                <div>
+                    <p class="Discount">Get 22% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs999</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_65">
+                <img src="/imgs/H5.webp" alt="Homecare">
+                <h3>Geometric Multi</h3>
+                <p>Description: Cotton</p>
+                <div>
+                    <p class="Discount">Get 12% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs499</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_66">
+                <img src="/imgs/H6.webp" alt="Homecare">
+                <h3>Shutle Brown</h3>
+                <p>Description: Tera Cotton</p>
+                <div>
+                    <p class="Discount">Get 18% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs1499</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_67">
+                <img src="/imgs/H7.webp" alt="Homecare">
+                <h3>Monocromatic Peach</h3>
+                <p>Description: Silk</p>
+                <div>
+                    <p class="Discount">Get 9% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs2999</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_68">
+                <img src="/imgs/H8.webp" alt="Homecare">
+                <h3>Geometric mixed</h3>
+                <p>Description: Pure cotton</p>
+                <div>
+                    <p class="Discount">Get 25% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs599</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_69">
+                <img src="/imgs/H9.webp" alt="Homecare">
+                <h3>Floral Blue</h3>
+                <p>Description: Pure Cotton</p>
+                <div>
+                    <p class="Discount">Get 3% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs599</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_70">
+                <img src="/imgs/H10.webp" alt="Homecare">
+                <h3>Off-White</h3>
+                <p>Description: Cotton</p>
+                <div>
+                    <p class="Discount">Get 29% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs699</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_71">
+                <img src="/imgs/H11.webp" alt="Homecare">
+                <h3>Ocean Blue</h3>
+                <p>Description: Casual</p>
+                <div>
+                    <p class="Discount">Get 17% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs699</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_72">
+                <img src="/imgs/H12.webp" alt="Homecare">
+                <h3>Royal Blue</h3>
+                <p>Description: Volvet</p>
+                <div>
+                    <p class="Discount">Get 14% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs999</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_73">
+                <img src="/imgs/H13.webp" alt="Homecare">
+                <h3>Bright Pink</h3>
+                <p>Description: Pure Cotton</p>
+                <div>
+                    <p class="Discount">Get 30% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs650</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_74">
+                <img src="/imgs/H14.webp" alt="Homecare">
+                <h3>Floral Pink</h3>
+                <p>Description: Cotton</p>
+                <div>
+                    <p class="Discount">Get 19% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs599</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_75">
+                <img src="/imgs/H15.webp" alt="Homecare">
+                <h3>Geometric Lines</h3>
+                <p>Description: Cotton</p>
+                <div>
+                    <p class="Discount">Get 2% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs750</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item" id="Product_76">
+                <img src="/imgs/H16.webp" alt="Homecare">
+                <h3>Geometric White</h3>
+                <p>Description: Cotton</p>
+                <div>
+                    <p class="Discount">Get 7% off</p>
+                    <div class="flex justify-between items-center">
+                        <span class="price">Rs999</span>
+                        <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="progress">
+        <div class="progress-circle"></div>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="transform:rotate(-90deg)">
+            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+        </svg>
+    </div>
+
+    <!-- <div class="progress-bar"></div> -->
+
+
+    <footer>
+        <p>&copy; 2024 E-commerce Website. All rights reserved.</p>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Progress button functionality
+        const progressBtn = document.querySelector('.progress');
+        const progressCircle = document.querySelector('.progress-circle');
+        // const progressBar = document.querySelector('.progress-bar');
+
+        progressBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollProgress = (scrollTop / scrollHeight) * 100;
+            if (scrollProgress !== 0) {
+                progressBtn.style.display = "flex";
+            } else {
+                progressBtn.style.display = "none";
+            }
+            // progressBar.style.width = `${scrollProgress}%`;
+            progressCircle.style.backgroundImage = `conic-gradient(#6b46c1 ${scrollProgress}%, #e2e8f0 ${scrollProgress}%)`;
+        });
+
+        // Check if there are already items in the cart
+        if (localStorage.cartItems) {
+            // Retrieve existing cart items from local storage
+            let c = JSON.parse(localStorage.cartItems);
+            if (c) {
+                let productItems = document.querySelectorAll('.product-item');
+                for (var i of c) {
+                    for (let j of productItems) {
+                        if (j.getAttribute('id') === i.name) {
+                            j.querySelector('button').style.display = "none";
+                            plusMinusBtn(i.name, j.querySelector('button'));
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        // Function to handle adding a product to the cart and storing it in local storage
+        function addToCart(productName, button) {
+            // Check if local storage is supported by the browser
+            // Initialize an empty array to store cart items
+            let cartItems = [];
+            // Check if there are already items in the cart
+            if (localStorage.cartItems) {
+                // Retrieve existing cart items from local storage
+                cartItems = JSON.parse(localStorage.cartItems);
+            }
+            let isFound = false;
+            for (var i of cartItems) {
+                if (i.name === productName) {
+                    isFound = true;
+                    break;
+                }
+            }
+            if (!isFound) {
+                // Create an object representing the product to be added to cart
+                let product = {
+                    name: productName,
+                    qty: 1,
+                    description: button.parentElement.parentElement.parentElement.querySelector('p').innerText,
+                    price: button.parentElement.querySelector('.price').innerText,
+                    prodname: button.parentElement.parentElement.parentElement.querySelector('h3').innerText,
+                    img: button.parentElement.parentElement.parentElement.querySelector('img').getAttribute('src'),
+                    discount: button.parentElement.parentElement.querySelector('.Discount').innerText.match(/\d+/)[0]
+                };
+                // Add the product to the cart items array
+                cartItems.push(product);
+                // Store the updated cart items array in local storage
+                localStorage.cartItems = JSON.stringify(cartItems);
+            }
+            plusMinusBtn(productName, button);
+        }
+
+        // Add event listeners to all "Add to Cart" buttons
+        let addToCartButtons = document.querySelectorAll(".add-to-cart-btn");
+        addToCartButtons.forEach(function (button) {
+            button.addEventListener("click", function (event) {
+                let productContainer = event.target.closest(".product-item");
+                let productName = productContainer.getAttribute("id");
+                // let productPrice = productContainer.querySelector("p:nth-of-type(3)").textContent.split(":")[1].trim();
+                addToCart(productName, button);
+            });
+        });
+
+        function plusMinusBtn(productName, button) {
+            // Initialize an empty array to store cart items
+            let cartItems = [];
+            // Check if there are already items in the cart
+            if (localStorage.cartItems) {
+                // Retrieve existing cart items from local storage
+                cartItems = JSON.parse(localStorage.cartItems);
+            }
+            button.style.display = "none";
+            let a = button.parentElement;
+            let plusbtn = document.createElement('button');
+            let productqty = document.createElement('span');
+            let minusbtn = document.createElement('button');
+            plusbtn.innerText = "+";
+            minusbtn.innerText = "-";
+            plusbtn.classList.add('plus-btn');
+            productqty.classList.add('productqty');
+            minusbtn.classList.add('minus-btn');
+            a.appendChild(plusbtn);
+            a.appendChild(productqty);
+            a.appendChild(minusbtn);
+            for (let i of cartItems) {
+                if (i.name === productName) {
+                    productqty.innerText = i.qty;
+                    break;
+                }
+            }
+            minusbtn.addEventListener('click', () => {
+                if (localStorage.cartItems) {
+                    // Retrieve existing cart items from local storage
+                    cartItems = JSON.parse(localStorage.cartItems);
+                }
+                if (parseInt(productqty.innerText) === 1) {
+                    plusbtn.remove();
+                    minusbtn.remove();
+                    productqty.remove();
+                    let newCartItems = [];
+                    for (let i = 0; i < cartItems.length; i++) {
+                        if (cartItems[i].name !== productName) {
+                            newCartItems.push(cartItems[i]);
+                        }
+                    } localStorage.cartItems = JSON.stringify(newCartItems);
+                    button.style.display = "inline";
+                } else {
+                    for (let i of cartItems) {
+                        if (i.name === productName) {
+                            i.qty -= 1;
+                            break;
+                        }
+                    } localStorage.cartItems = JSON.stringify(cartItems); productqty.innerText = parseInt(productqty.innerText)
+                        - 1;
+                }
+            }); plusbtn.addEventListener('click', () => {
+                if (localStorage.cartItems) {
+                    // Retrieve existing cart items from local storage
+                    cartItems = JSON.parse(localStorage.cartItems);
+                }
+                for (let i of cartItems) {
+                    if (i.name === productName) {
+                        i.qty += 1;
+                        break;
+                    }
+                } localStorage.cartItems = JSON.stringify(cartItems);
+                productqty.innerText = parseInt(productqty.innerText) + 1;
+            });
+        }
+
+        const srch = document.querySelector('.search')
+        srch.addEventListener('mousemove', (e) => {
+            const x = e.pageX - srch.offsetLeft;
+            const y = e.pageY - srch.offsetTop;
+            srch.style.setProperty('--x', x + 'px');
+            srch.style.setProperty('--y', y + 'px');
+        });
+        srch.querySelector('input').addEventListener('input', () => {
+            console.log(srch.querySelector('input').value === '');
+            if (srch.querySelector('input').value === '') {
+                window.location = '/home';
+            }
+        });
+        let productItems = document.querySelectorAll('.product-item');
+        let cnt=0;
+        productItems.forEach((productItem) => {
+            if (productItem.querySelector('h3').innerText.toLowerCase().includes(document.querySelector('.featured-products h2').innerText.slice(13).toLowerCase())){
+                productItem.style.display='block';
+                cnt+=1;
+            }
+        });
+        if (cnt===0){
+            document.querySelector('.featured-products').innerHTML = `<h2>No products found</h2>`;
+        }
+
+
+    </script>
+</body>
+
+</html>

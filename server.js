@@ -47,6 +47,7 @@ const userSchema = new mongoose.Schema({
     Password: String
 });
 
+let srch;
 
 const user = mongoose.model("user", userSchema);
 
@@ -139,6 +140,27 @@ app.get("/kids", (req, res) => {
 app.get("/homecare", (req, res) => {
     res.render("home_catg");
 });
+app.get('/product',(req,res)=>{
+    res.render("product");
+});
+// app.post('/searches', (req, res) => {
+//     const { query } = req.body;
+//     console.log('Search query:', query);
+//     srch=query;
+//     // res.render('searches',{query:srch});
+//     res.render("searches",{query});
+// });
+
+app.post('/search', (req, res) => {
+    const { query } = req.body;
+    // if (query===''){
+    //     res.render('home',{query});
+    // }
+    console.log('Search query:', query);
+    srch=query;
+    // res.render('searches',{query:srch});
+    res.render("searches",{query});
+});
 // app.get("/sign",(req,res)=>{
 //     res.render("login");
 // });
@@ -206,6 +228,8 @@ app.post("/login", async (req, res) => {
 
     EL = email;
 });
+
+
 
 app.listen(PORT, () => {
     console.log(`Server Running on mode on port ${PORT}`);

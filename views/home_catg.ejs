@@ -535,6 +535,7 @@
         let addToCartButtons = document.querySelectorAll(".add-to-cart-btn");
         addToCartButtons.forEach(function (button) {
             button.addEventListener("click", function (event) {
+                event.stopPropagation();
                 let productContainer = event.target.closest(".product-item");
                 let productName = productContainer.getAttribute("id");
                 // let productPrice = productContainer.querySelector("p:nth-of-type(3)").textContent.split(":")[1].trim();
@@ -570,6 +571,7 @@
                 }
             }
             minusbtn.addEventListener('click', () => {
+                event.stopPropagation();
                 if (localStorage.cartItems) {
                     // Retrieve existing cart items from local storage
                     cartItems = JSON.parse(localStorage.cartItems);
@@ -597,6 +599,7 @@
                 }
             });
             plusbtn.addEventListener('click', () => {
+                event.stopPropagation();
                 if (localStorage.cartItems) {
                     // Retrieve existing cart items from local storage
                     cartItems = JSON.parse(localStorage.cartItems);
@@ -610,6 +613,20 @@
                 productqty.innerText = parseInt(productqty.innerText) + 1;
             });
         }
+        let productContainers = document.querySelectorAll(".product-item");
+        productContainers.forEach((product) => {
+            product.addEventListener('click', () => {
+                localStorage.product = JSON.stringify({
+                    name: product.getAttribute('id'),
+                    description: product.querySelector('p').innerText,
+                    price: product.querySelector('.price').innerText,
+                    prodname: product.querySelector('h3').innerText,
+                    img: product.querySelector('img').getAttribute('src'),
+                    discount: product.querySelector('.Discount').innerText.match(/\d+/)[0]
+                });
+                window.location='/product';
+            })
+        });
     </script>
 </body>
 
